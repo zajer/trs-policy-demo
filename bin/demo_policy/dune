@@ -1,0 +1,6 @@
+
+(executables
+  (names state_space policy_main ) 
+  (libraries policy tracking_bigraph bigraph)
+  (modes native )
+)

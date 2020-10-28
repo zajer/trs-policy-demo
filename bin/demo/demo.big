@@ -1,0 +1,46 @@
+ctrl A = 4;
+ctrl UAV = 0;
+atomic ctrl DUAV = 0;
+atomic ctrl DU = 0;
+ctrl DS = 0;
+ctrl B = 0;
+
+react moveUAV = 	 
+		(A{l1,t1,r1,b1}.(UAV.id | id) | A{r1,t2,r2,b2}.id)
+	 	-> 
+	 	(A{l1,t1,r1,b1}.id | A{r1,t2,r2,b2}.(UAV.id | id))
+		@[1,0,2];
+react downloadData =
+		(A{l1,t1,r1,b1}.(UAV.1 | id | DS.(DU | id)))
+		->
+		(A{l1,t1,r1,b1}.(UAV.DU | id | DS.( id)))
+		;
+react moveIntoBase = 
+		(A{l1,t1,r1,b1}.(UAV.id | id | B.id))
+		-> 
+		(A{l1,t1,r1,b1}.( id | B.(UAV.id |id)))
+		@[1,0,2]
+		;
+react deployData =
+		(B.(UAV.DU |id))
+		->
+		(B.(UAV.1 | DU |id))
+		;
+react deactUAV = 
+		(B.(UAV.1 |id))
+		->
+		(B.( DUAV | id))
+		;
+react moveOutOfBase = 
+		(A{l1,t1,r1,b1}.( id | B.(UAV.id |id)))
+		-> 
+		(A{l1,t1,r1,b1}.(UAV.id | id | B.id))
+		@[1,0,2]
+		;
+big s0 = 
+	/l1 /t1 /r1 /b1 /t2 /r2 /b2 (A{l1,t1,r1,b1}.(B.1 | UAV.1) | A{r1,t2,r2,b2}.DS.DU) ;
+
+begin brs
+	init s0;
+	rules = [{moveUAV,downloadData,moveIntoBase,deployData,deactUAV,moveOutOfBase}];
+end
