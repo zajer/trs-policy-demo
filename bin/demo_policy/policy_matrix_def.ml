@@ -1,0 +1,19 @@
+open Policy_def
+module IntMap = Map.Make(Int)
+let mof = IntMap.empty
+let mof = IntMap.add 0 f0 mof
+let mof = IntMap.add 1 f1 mof
+let mof = IntMap.add 2 f2 mof
+let mof = IntMap.add 3 f3 mof
+let mof = IntMap.add 4 f4 mof
+let mof = IntMap.add 5 f5 mof
+let mof = IntMap.add 6 f6 mof
+let mof = IntMap.add 7 f7 mof
+let mof = IntMap.add 8 f8 mof
+let mof = IntMap.add 9 f9 mof
+let mof = IntMap.add 10 f10 mof
+let mof = IntMap.add 11 f11 mof
+let mof = IntMap.add 12 f12 mof
+let mof = IntMap.add 13 f13 mof
+let mof = IntMap.add 14 f14 mof
+let mof = IntMap.add 15 f15 mof
